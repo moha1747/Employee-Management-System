@@ -28,20 +28,22 @@ const ListEmployeeComponent = () => {
             <table className='table table-bordered table striped'>
                 <thead>
                     <th>Employee ID</th>
-                    <th>Employee First Name</th>
-                    <th>Employee Last Name</th>
-                    <th>Employee Email</th>
+                    <th>Employee</th>
+                    <th>Position</th>
+                    <th>Location</th>
+                    <th>Salary</th>
                     <th>Actions</th>
                 </thead>
                 <tbody>
                     {employeeArray.map(employee =>
                         <tr id={employee.id}>
                             <td>{employee.id}</td>
-                            <td>{employee.firstName}</td>
-                            <td>{employee.lastName}</td>
-                            <td>{employee.email}</td>
+                            <td>{employee.firstName}{employee.lastName} <br /> {employee.email}</td>
+                            <td>{employee.position}</td>
+                            <td>{employee.location}</td>
+                            <td>{employee.salary}</td>
                             <td>
-                                <Link to={`/add-employee/${employee.id}`} className='btn btn-info' href="">Update</Link> {" "}
+                                <Link to={`/add-employee/${employee.id}`} className='btn btn-primary ' href="">Update</Link> {" "}
                                 <a onClick={(e) => deleteEmployee(e, employee.id)} className='btn btn-danger'>Delete</a>
                             </td>
                         </tr>)}

@@ -1,4 +1,42 @@
-.footer{
+.header {
+    background-color: #0980FE;
+    color: white;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    padding-right: 70px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 80px;
+}
+
+.radio-1::before {
+    width: 20px; /* Make the radio button larger */
+    height: 20px; /* Make the radio button larger */
+    -webkit-appearance: none; /* Remove default styles */
+    appearance: none; /* Remove default styles */
+    border: 2px solid #333; /* Custom border */
+    border-radius: 6px; /* Rounded corners */
+    outline: none; /* Remove focus outline */
+    cursor: pointer;
+    vertical-align: middle;
+    background-color: white; /* Background to appear hollow */
+}
+
+.radio-1:checked {
+    background-color: #0980FE; /* Change background on checked */
+    border-color: white; /* Optional: change border color on checked */
+}
+
+
+.footer {
     background-color: black;
     color: white;
     padding: 15px;
