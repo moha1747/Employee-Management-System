@@ -11,6 +11,9 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String email;
+    private String position;
+    private String location;
+    private String salary;
 
     public Employee() {
     }
@@ -46,4 +49,13 @@ public class Employee {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getPosition() { return position; }
+
+    public void setPosition(String position) { this.position = position; }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String location) { this.location = location; }
+    public String getSalary() { return salary; }
+    public void setSalary(String salary) { this.salary = salary; }
 }

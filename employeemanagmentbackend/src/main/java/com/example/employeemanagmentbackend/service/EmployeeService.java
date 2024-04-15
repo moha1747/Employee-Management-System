@@ -37,6 +37,9 @@ public class EmployeeService implements EmployeeServiceInterface {
         employeeToUpdate.setFirstName(employee.getFirstName());
         employeeToUpdate.setLastName(employee.getLastName());
         employeeToUpdate.setEmail(employee.getEmail());
+        employeeToUpdate.setLocation(employee.getLocation());
+        employeeToUpdate.setPosition(employee.getPosition());
+        employeeToUpdate.setSalary(employee.getSalary());
         return employeeRepository.save(employeeToUpdate);
     }
 
