@@ -15,31 +15,35 @@ import java.util.Optional;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService employeeService; //we are bringing in Employee Service instance
+    private EmployeeService employeeService;
 
-    /**This is a post Request, here we are going to be saving an employee*/
+    // Create or update an employee
     @PostMapping
-    public Employee saveEmployee(@RequestBody Employee employee){
-        return employeeService.saveEmployee(employee);
+    public Employee saveOrUpdateEmployee(@RequestBody Employee employee) {
+        return employeeService.saveOrUpdateEmployee(employee);
     }
-        /** Here, we are getting all employee*/
+
+    // Get all employees
     @GetMapping
-    public List<Employee> getAllEmployee(){
-        return employeeService.getAllEmployee();
+    public List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
     }
-     /**here, we are geting one empployee*/
+
+    // Get one employee by id
     @GetMapping("/{id}")
-    public Optional<Employee> getEmployeeById(@PathVariable int id){
+    public Optional<Employee> getEmployeeById(@PathVariable int id) {
         return employeeService.getEmployeeById(id);
     }
-        /**here, we are going to be updating an employee*/
+
+    // Update an employee
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable int id, @RequestBody Employee employee){
-        return employeeService.updateEmployee(id,employee);
+    public Employee updateEmployee(@PathVariable int id, @RequestBody Employee employee) {
+        return employeeService.updateEmployee(id, employee);
     }
-      /**Here, we are going to be deleting an employee*/
+
+    // Delete an employee
     @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable int id){
+    public void deleteEmployee(@PathVariable int id) {
         employeeService.deleteEmployee(id);
     }
 }

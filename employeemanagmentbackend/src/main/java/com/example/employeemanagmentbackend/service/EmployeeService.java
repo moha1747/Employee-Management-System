@@ -1,3 +1,4 @@
+
 package com.example.employeemanagmentbackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,34 +18,38 @@ public class EmployeeService implements EmployeeServiceInterface {
     private EmployeeRepository employeeRepository;
 
     @Override
-    public Employee saveEmployee(Employee employee) {
-        return employeeRepository.save(employee);
-    }
-
-    @Override
     public Optional<Employee> getEmployeeById(int id) {
         return employeeRepository.findById(id);
     }
 
     @Override
-    public List<Employee> getAllEmployee() {
-        return employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-    }
-
-    @Override
     public Employee updateEmployee(int id, Employee employee) {
-        Employee employeeToUpdate = employeeRepository.findById(id).orElseThrow();
-        employeeToUpdate.setFirstName(employee.getFirstName());
-        employeeToUpdate.setLastName(employee.getLastName());
-        employeeToUpdate.setEmail(employee.getEmail());
-        employeeToUpdate.setLocation(employee.getLocation());
-        employeeToUpdate.setPosition(employee.getPosition());
-        employeeToUpdate.setHours(employee.getHours());
-        return employeeRepository.save(employeeToUpdate);
+        Employee existingEmployee = employeeRepository.findById(id).orElseThrow();
+        existingEmployee.setFirstName(employee.getFirstName());
+        existingEmployee.setLastName(employee.getLastName());
+        existingEmployee.setEmail(employee.getEmail());
+        existingEmployee.setLocation(employee.getLocation());
+        existingEmployee.setPosition(employee.getPosition());
+        existingEmployee.setHours(employee.getHours());
+        existingEmployee.setUser(employee.getUser()); // Ensure user linkage is maintained
+        return employeeRepository.save(existingEmployee);
     }
 
     @Override
     public void deleteEmployee(int id) {
         employeeRepository.deleteById(id);
     }
+
+    @Override
+    public Employee saveEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
+    @Override
+    public List<Employee> getAllEmployees() {
+               return employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+
+    }
+
 }
+
