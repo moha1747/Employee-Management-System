@@ -39,7 +39,7 @@ public class EmployeeService implements EmployeeServiceInterface {
         employeeToUpdate.setEmail(employee.getEmail());
         employeeToUpdate.setLocation(employee.getLocation());
         employeeToUpdate.setPosition(employee.getPosition());
-        employeeToUpdate.setSalary(employee.getSalary());
+        employeeToUpdate.setHours(employee.getHours());
         return employeeRepository.save(employeeToUpdate);
     }
 

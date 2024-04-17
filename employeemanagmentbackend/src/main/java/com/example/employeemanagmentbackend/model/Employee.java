@@ -13,7 +13,7 @@ public class Employee {
     private String email;
     private String position;
     private String location;
-    private String salary;
+    private String hours;
 
     public Employee() {
     }
@@ -56,6 +56,6 @@ public class Employee {
     public String getLocation() { return location; }
 
     public void setLocation(String location) { this.location = location; }
-    public String getSalary() { return salary; }
-    public void setSalary(String salary) { this.salary = salary; }
+    public String getHours() { return hours; }
+    public void setHours(String hours) { this.hours = hours; }
 }
