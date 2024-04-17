@@ -19,8 +19,8 @@ public class EmployeeController {
 
     // Create or update an employee
     @PostMapping
-    public Employee saveOrUpdateEmployee(@RequestBody Employee employee) {
-        return employeeService.saveOrUpdateEmployee(employee);
+    public Employee save(@RequestBody Employee employee) {
+        return employeeService.saveEmployee(employee);
     }
 
     // Get all employees
