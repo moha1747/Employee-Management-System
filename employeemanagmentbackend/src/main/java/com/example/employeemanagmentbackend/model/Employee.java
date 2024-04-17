@@ -15,8 +15,11 @@ public class Employee {
     private String location;
     private String hours;
 
-    public Employee() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    public Employee() {}
 
     public int getId() {
         return id;
@@ -49,13 +52,36 @@ public class Employee {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getPosition() { return position; }
 
-    public void setPosition(String position) { this.position = position; }
+    public String getPosition() {
+        return position;
+    }
 
-    public String getLocation() { return location; }
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
-    public void setLocation(String location) { this.location = location; }
-    public String getHours() { return hours; }
-    public void setHours(String hours) { this.hours = hours; }
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

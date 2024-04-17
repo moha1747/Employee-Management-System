@@ -1,19 +1,26 @@
+
 package com.example.employeemanagmentbackend.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.employeemanagmentbackend.model.User;
+import com.example.employeemanagmentbackend.model.Employee;
 import com.example.employeemanagmentbackend.repository.UserRepository;
+import com.example.employeemanagmentbackend.repository.EmployeeRepository;
 
 @Service
 public class UserService implements UserServiceInterface {
+
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Override
     public User saveUser(User user) {
@@ -43,4 +50,17 @@ public class UserService implements UserServiceInterface {
         userRepository.deleteById(id);
     }
 
+    //method to get all employees for a specific user
+    public Set<Employee> getUserEmployees(int userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        return user.getEmployees();
+    }
+
+    // method to add an employee to a user
+    public User addEmployeeToUser(int userId, Employee employee) {
+        User user = userRepository.findById(userId).orElseThrow();
+        employee.setUser(user);
+        employeeRepository.save(employee);
+        return user;
+    }
 }

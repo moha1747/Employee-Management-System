@@ -9,6 +9,7 @@ import com.example.employeemanagmentbackend.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
@@ -18,14 +19,14 @@ public class UserController {
     @Autowired
     private UserService userService; // we are bringing in User Service instance
 
-    // This is a post request, here are we going to be saving a user
+    // This is a post request, here we are going to be saving a user
     @PostMapping
-    public User savUser(@RequestBody User user) {
+    public User saveUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
-    // Gets all user
+    // Gets all users
     @GetMapping
-    public List<User> getAllEmployees() {
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
     // Get one user by Id
@@ -33,7 +34,17 @@ public class UserController {
     public Optional<User> getUserById(@PathVariable int id) {
         return userService.getUserById(id);
     }
-    //here, we are going to be updating an user
+    // Get all employees for a user by user Id
+    @GetMapping("/{id}/employees")
+    public Set<Employee> getUserEmployees(@PathVariable int id) {
+        return userService.getUserEmployees(id);
+    }
+    // Add an employee to a user
+    @PostMapping("/{userId}/employees")
+    public User addEmployeeToUser(@PathVariable int userId, @RequestBody Employee employee) {
+        return userService.addEmployeeToUser(userId, employee);
+    }
+    // Update an user
     @PutMapping("/{id}")
     public User updateUser(@PathVariable int id, @RequestBody User user) {
         return userService.updateUser(id, user);

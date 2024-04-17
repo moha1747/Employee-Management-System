@@ -1,10 +1,9 @@
 package com.example.employeemanagmentbackend.service;
 
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-import com.example.employeemanagmentbackend.model.User;
+import com.example.employeemanagmentbackend.model.*;
 
 public interface UserServiceInterface {
     
@@ -17,5 +16,7 @@ public interface UserServiceInterface {
     User updateUser(int id, User user);
 
     void deleteUser(int id);
+
+    public Set<Employee> getUserEmployees(int userId);
     
 }
