@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import EmployeeService from "../service/EmployeeService";
+import "../styles/add.css";
 
 const AddEmployeeComponent = () => {
   /** Variables and method to collect and store inputes */
@@ -8,12 +9,19 @@ const AddEmployeeComponent = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
-  const [salary, setSalary] = useState("");
+  const [hours, setHours] = useState("");
   const [position, setPosition] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const employeeData = { firstName, lastName, email, location, position, salary }; //bundle the inpute from user
+  const employeeData = {
+    firstName,
+    lastName,
+    email,
+    location,
+    position,
+    hours,
+  }; //bundle the inpute from user
 
   /**send data to api and navigate when succesful */
   function saveEmployee(e) {
@@ -23,7 +31,7 @@ const AddEmployeeComponent = () => {
       employeeData.firstName !== "" &&
       employeeData.lastName !== "" &&
       employeeData.email !== "" &&
-      employeeData.salary !== "" &&
+      employeeData.hours !== "" &&
       employeeData.location !== "" &&
       employeeData.position !== ""
     ) {
@@ -58,7 +66,7 @@ const AddEmployeeComponent = () => {
           setEmail(res.data.email);
           setLocation(res.data.location);
           setPosition(res.data.position);
-          setSalary(res.data.salary);
+          setHours(res.data.hours);
         })
         .catch((e) => console.log(e));
     }
@@ -66,78 +74,78 @@ const AddEmployeeComponent = () => {
 
   return (
     <div>
-      <div className="container mt-5">
-        <div className="row">
-          <div className="card col-md-6 offset-md-3">
-            <h2 className="text-center">{tile()}</h2>
-            <div className="card-body">
-              <form>
-                <div className="form-group mb-2">
-                  <input
-                    className="form-control"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    type="text"
-                    placeholder="Enter First Name"
-                  />
-                </div>
-                <div className="form-group mb-2">
-                  <input
-                    className="form-control"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    type="text"
-                    placeholder="Enter Last Name"
-                  />
-                </div>
-                <div className="form-group mb-2">
-                  <input
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email"
-                    placeholder="Enter Email"
-                  />
-                </div>
-                <div className="form-group mb-2">
-                  <input
-                    className="form-control"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    type="location"
-                    placeholder="Enter Location"
-                  />
-                </div>
-                <div className="form-group mb-2">
-                  <input
-                    className="form-control"
-                    value={position}
-                    onChange={(e) => setPosition(e.target.value)}
-                    type="Position"
-                    placeholder="Enter Position"
-                  />
-                </div>
-                <div className="form-group mb-2">
-                  <input
-                    className="form-control"
-                    value={salary}
-                    onChange={(e) => setSalary(e.target.value)}
-                    type="salary"
-                    placeholder="Enter Salary"
-                  />
-                </div>
-                <button
-                  onClick={(e) => saveEmployee(e)}
-                  className="btn btn-success"
-                >
-                  Save
-                </button>{" "}
-                <Link to={"/employee"} className="btn btn-danger" href="">
-                  Cancel
-                </Link>
-              </form>
+      <div className="container1">
+        <div className="title">
+          {" "}
+          <h2>{tile()}</h2>
+        </div>
+        <div className="card-body">
+          <form>
+            <div className="form-group">
+              <input
+                className="form-control"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                type="text"
+                placeholder="Enter First Name"
+              />
             </div>
-          </div>
+            <div className="form-group mb-2">
+              <input
+                className="form-control"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                type="text"
+                placeholder="Enter Last Name"
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="Enter Email"
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                className="form-control"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                type="location"
+                placeholder="Enter Location"
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                className="form-control"
+                value={position}
+                onChange={(e) => setPosition(e.target.value)}
+                type="Position"
+                placeholder="Enter Position"
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                className="form-control"
+                value={hours}
+                onChange={(e) => setHours(e.target.value)}
+                type="hours"
+                placeholder="Enter hours"
+              />
+            </div>
+            <div className="button"></div>
+            <button
+              onClick={(e) => saveEmployee(e)}
+              className="custom-btn btn-5"
+            >
+              <span>Save</span>
+            </button>{" "}
+            <Link to={"/employee"} style={{ textDecoration: "none" }} href="">
+              <button className="custom-btn btn-13">Cancel</button>
+            </Link>
+          </form>
         </div>
       </div>
     </div>

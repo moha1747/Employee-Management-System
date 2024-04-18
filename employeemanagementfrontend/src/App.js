@@ -1,21 +1,19 @@
-// import AddEmployeeComponent from "./component/AddEmployeeComponent";
-// import FooterComponent from "./component/FooterComponent";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AddEmployeeComponent from "./component/AddEmployeeComponent";
 import HeaderComponent from "./component/HeaderComponent";
-// import ListEmployeeComponent from "./component/ListEmployeeComponent";
-import { BrowserRouter } from "react-router-dom";
+import ListEmployeeComponent from "./component/ListEmployeeComponent";
 
 function App() {
   return (
     <BrowserRouter>
-        <HeaderComponent />
+      <HeaderComponent />
 
-        {/* <Routes>
-          <Route path="/" element={<ListEmployeeComponent />} />
-          <Route path="/employee" element={<ListEmployeeComponent />} />
-          <Route path="/add-employee" element={<AddEmployeeComponent />} />
-          <Route path="/add-employee/:id" element={<AddEmployeeComponent />} />
-        </Routes> */}
-      {/* <FooterComponent /> */}
+      <Routes>
+        <Route path="/" element={<ListEmployeeComponent />} />
+        <Route path="/employee" element={<ListEmployeeComponent />} />
+        <Route path="/add-employee" element={<AddEmployeeComponent />} />
+        <Route path="/add-employee/:id" element={<AddEmployeeComponent />} />
+      </Routes>
     </BrowserRouter>
   );
 }

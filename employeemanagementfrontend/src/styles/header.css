@@ -1,5 +1,59 @@
-.nav__container{
-    width: 1100px;
-    border: 1px solid red;
-    color: red;
+.container1 {
+  width: 1100px;
+  height: 60px;
+  background-color: #0980fe;
+  color: white;
+  margin: auto;
+  margin-top: 50px;
+    border-radius: 5px;
+
+}
+
+.items__container {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 10px;
+}
+.first__label {
+  display: flex;
+justify-content: center;
+align-items: center;
+color: white;
+/* position: relative; */
+}
+.selector {
+  width: 25px; /* Make the radio button larger */
+  height: 25px; /* Make the radio button larger */
+  -webkit-appearance: none; /* Remove default styles */
+  appearance: none; /* Remove default styles */
+  border: 2px solid white; /* Custom border */
+  border-radius: 6px; /* Rounded corners */
+  outline: none; /* Remove focus outline */
+  cursor: pointer;
+  vertical-align: middle;
+}
+.employee {
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 30px;
+  cursor: pointer;
+  color: white;
+  
+}
+.second__item {
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 185px;
+}
+.third__item {
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 140px;
+}
+.fourth__item {
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 140px;
 }
