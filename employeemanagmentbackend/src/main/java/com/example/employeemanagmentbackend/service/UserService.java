@@ -56,6 +56,17 @@ public class UserService implements UserServiceInterface {
         return user.getEmployees();
     }
 
+    @Override
+    public Optional<User> findByEmailAndPassword(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
+
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     // method to add an employee to a user
     public User addEmployeeToUser(int userId, Employee employee) {
         User user = userRepository.findById(userId).orElseThrow();

@@ -1,12 +1,15 @@
 package com.example.employeemanagmentbackend.controller;
 
+import com.example.employeemanagmentbackend.service.PasswordHash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.employeemanagmentbackend.model.Employee;
 import com.example.employeemanagmentbackend.model.User;
 import com.example.employeemanagmentbackend.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -53,5 +56,33 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        if (userService.findByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body("Email is already in use");
+        }
+        user.setPassword(PasswordHash.hashPassword(user.getPassword()));
+        User savedUser = userService.saveUser(user);
+        return ResponseEntity.ok(savedUser);
+
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session) {
+        Optional<User> user = userService.findByEmailAndPassword(email, password);
+        if (user.isPresent()) {
+            session.setAttribute("user", user.get());
+            return "Logged In successfully";
+        }
+        else {
+            return "Invalid Credentials";
+        }
+    }
+    @PostMapping("/logout")
+    public String logoutUser(HttpSession session) {
+        session.invalidate();
+        return "Logged out successfully";
     }
 }
