@@ -1,12 +1,18 @@
 package com.example.employeemanagmentbackend.service;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordHash {
-    public static String hashPassword(String plainTextPassword){
-        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+
+
+        // Method to hash a password
+        public static String hashPassword(String plainTextPassword){
+            return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+        }
+
+        // Method to check a password
+        public static boolean checkPass(String plainPassword, String hashedPassword) {
+            return BCrypt.checkpw(plainPassword, hashedPassword);
+        }
     }
-    public static boolean checkPassword(String plainPassword, String hashPassword){
-        return BCrypt.checkpw(plainPassword, hashPassword);
-    }
-}
+

@@ -1,5 +1,6 @@
 package com.example.employeemanagmentbackend.controller;
 
+import com.example.employeemanagmentbackend.service.LoginDataTransfer;
 import com.example.employeemanagmentbackend.service.PasswordHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.example.employeemanagmentbackend.model.Employee;
 import com.example.employeemanagmentbackend.model.User;
 import com.example.employeemanagmentbackend.service.UserService;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +25,7 @@ public class UserController {
     // This is a post request, here we are going to be saving a user
     @PostMapping
     public User saveUser(@RequestBody User user) {
+        user.setPassword(PasswordHash.hashPassword(user.getPassword()));
         return userService.saveUser(user);
     }
     // Gets all users
@@ -70,14 +71,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session) {
-        Optional<User> user = userService.findByEmailAndPassword(email, password);
-        if (user.isPresent()) {
+    public ResponseEntity<?> loginUser(@RequestBody LoginDataTransfer loginDT, HttpSession session) {
+        Optional<User> user = userService.findByEmail(loginDT.getEmail());
+        if (user.isPresent() && PasswordHash.checkPass(loginDT.getPassword(), user.get().getPassword())) {
             session.setAttribute("user", user.get());
-            return "Logged In successfully";
-        }
-        else {
-            return "Invalid Credentials";
+            return ResponseEntity.ok("Logged in successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid credentials");
         }
     }
     @PostMapping("/logout")
