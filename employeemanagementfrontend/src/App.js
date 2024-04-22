@@ -1,15 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AddEmployeeComponent from "./component/AddEmployeeComponent";
-import HeaderComponent from "./component/HeaderComponent";
-import ListEmployeeComponent from "./component/ListEmployeeComponent";
+import AddEmployeeComponent from "./client/AddEmployeeComponent";
+import HeaderComponent from "./client/HeaderComponent";
+import ListEmployeeComponent from "./client/ListEmployeeComponent";
+import Authentication  from "./static/authentication";
 
 function App() {
   return (
     <BrowserRouter>
-      <HeaderComponent />
 
       <Routes>
-        <Route path="/" element={<ListEmployeeComponent />} />
+        <Route path="/employee" element={ <HeaderComponent />} />
+
+        <Route path="/" element={<Authentication />} />
         <Route path="/employee" element={<ListEmployeeComponent />} />
         <Route path="/add-employee" element={<AddEmployeeComponent />} />
         <Route path="/add-employee/:id" element={<AddEmployeeComponent />} />

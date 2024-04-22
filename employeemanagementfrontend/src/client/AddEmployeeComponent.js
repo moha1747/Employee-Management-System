@@ -12,54 +12,38 @@ const AddEmployeeComponent = () => {
   const [hours, setHours] = useState("");
   const [position, setPosition] = useState("");
   const navigate = useNavigate();
-  const { id } = useParams();
+ const { userId } = useParams(); // Fetching userId from route parameters
 
-  const employeeData = {
-    firstName,
-    lastName,
-    email,
-    location,
-    position,
-    hours,
-  }; //bundle the inpute from user
+ const employeeData = {
+   firstName,
+   lastName,
+   email,
+   location,
+   position,
+   hours,
+ };
 
-  /**send data to api and navigate when succesful */
-  function saveEmployee(e) {
-    e.preventDefault();
-
-    if (
-      employeeData.firstName !== "" &&
-      employeeData.lastName !== "" &&
-      employeeData.email !== "" &&
-      employeeData.hours !== "" &&
-      employeeData.location !== "" &&
-      employeeData.position !== ""
-    ) {
-      /**If id is present in the parameter, it should update else it should save */
-      if (id) {
-        EmployeeService.updateEmployee(id, employeeData)
-          .then(navigate("/employee"))
-          .catch((e) => console.log(e));
-      } else {
-        EmployeeService.saveEmployee(employeeData)
-          .then(navigate("/employee"))
-          .catch((e) => console.log(e));
-      }
-    } else {
-      alert("Please fill in the blanks");
-    }
-  }
+ function saveEmployee(e) {
+   e.preventDefault();
+   if (Object.values(employeeData).every((field) => field !== "")) {
+     EmployeeService.addEmployeeToUser(userId, employeeData)
+       .then(() => navigate("/employees"))
+       .catch((e) => console.log(e));
+   } else {
+     alert("Please fill in all fields");
+   }
+ }
 
   function tile() {
-    if (id) {
+    if (userId) {
       return "Update Employee";
     } else {
       return "Add Employee";
     }
   }
   useEffect(() => {
-    if (id) {
-      EmployeeService.getEmployeeById(id)
+    if (userId) {
+      EmployeeService.getEmployeeById(userId)
         .then((res) => {
           setFirstName(res.data.firstName);
           setLastName(res.data.lastName);
