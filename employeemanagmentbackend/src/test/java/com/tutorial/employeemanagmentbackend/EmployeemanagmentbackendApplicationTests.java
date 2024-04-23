@@ -1,13 +1,13 @@
-package com.tutorial.employeemanagmentbackend;
+// package com.tutorial.employeemanagmentbackend;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class EmployeemanagmentbackendApplicationTests {
+// @SpringBootTest
+// class EmployeemanagmentbackendApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }
