@@ -7,11 +7,11 @@ import Authentication  from "./static/authentication";
 function App() {
   return (
     <BrowserRouter>
-
       <Routes>
-        <Route path="/employee" element={ <HeaderComponent />} />
-
         <Route path="/" element={<Authentication />} />
+
+        <Route path="/employee" element={<HeaderComponent />} />
+
         <Route path="/employee" element={<ListEmployeeComponent />} />
         <Route path="/add-employee" element={<AddEmployeeComponent />} />
         <Route path="/add-employee/:id" element={<AddEmployeeComponent />} />
