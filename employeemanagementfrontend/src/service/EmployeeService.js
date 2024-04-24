@@ -7,9 +7,9 @@ class EmployeeService {
     return axios.get(BASE_URL);
   }
   /**MEthod to save employee */
-  addEmployeeToUser(userId, employeeData) {
+  addEmployeeToUser(id, employeeData) {
     return axios.post(
-      `http://localhost:8080/user/${userId}/employees`,
+      `http://localhost:8080/user/${id}/employee`,
       employeeData
     );
   }
