@@ -1,16 +1,14 @@
 package com.example.employeemanagmentbackend.service;
 
-import java.util.List;
+import java.util.Set; // Use Set instead of List to avoid duplicates
 import java.util.Optional;
 
 import com.example.employeemanagmentbackend.model.Employee;
 
 public interface EmployeeServiceInterface {
-    public Employee saveEmployee(Employee employee);
-    public Optional<Employee> getEmployeeById(int id);
-    List<Employee> getAllEmployees();
-    Employee updateEmployee(int id, Employee employee);
-
-    void deleteEmployee(int id);
-
+    Employee addEmployeeToUser(int userId, Employee employee);
+    Optional<Employee> getEmployeeByUserIdAndEmployeeId(int userId, int employeeId);
+    Set<Employee> getUserEmployees(int userId);
+    Employee updateEmployee(int userId, int employeeId, Employee employee);
+    void deleteEmployee(int userId, int employeeId);
 }

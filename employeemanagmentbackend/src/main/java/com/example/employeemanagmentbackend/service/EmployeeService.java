@@ -1,15 +1,15 @@
-
 package com.example.employeemanagmentbackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import com.example.employeemanagmentbackend.model.Employee;
+import com.example.employeemanagmentbackend.model.User;
 import com.example.employeemanagmentbackend.repository.EmployeeRepository;
+import com.example.employeemanagmentbackend.repository.UserRepository;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class EmployeeService implements EmployeeServiceInterface {
@@ -17,39 +17,42 @@ public class EmployeeService implements EmployeeServiceInterface {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    public Optional<Employee> getEmployeeById(int id) {
-        return employeeRepository.findById(id);
+    public Employee addEmployeeToUser(int userId, Employee employee) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        employee.setUser(user);
+        return employeeRepository.save(employee);
     }
 
     @Override
-    public Employee updateEmployee(int id, Employee employee) {
-        Employee existingEmployee = employeeRepository.findById(id).orElseThrow();
+    public Optional<Employee> getEmployeeByUserIdAndEmployeeId(int userId, int employeeId) {
+        return employeeRepository.findByIdAndUserId(employeeId, userId);
+    }
+
+    @Override
+    public Set<Employee> getUserEmployees(int userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getEmployees();
+    }
+
+    @Override
+    public Employee updateEmployee(int userId, int employeeId, Employee employee) {
+        Employee existingEmployee = getEmployeeByUserIdAndEmployeeId(userId, employeeId).orElseThrow(() -> new RuntimeException("Employee not found"));
         existingEmployee.setFirstName(employee.getFirstName());
         existingEmployee.setLastName(employee.getLastName());
         existingEmployee.setEmail(employee.getEmail());
         existingEmployee.setLocation(employee.getLocation());
         existingEmployee.setPosition(employee.getPosition());
         existingEmployee.setHours(employee.getHours());
-        existingEmployee.setUser(employee.getUser()); // Ensure user linkage is maintained
         return employeeRepository.save(existingEmployee);
     }
 
     @Override
-    public void deleteEmployee(int id) {
-        employeeRepository.deleteById(id);
+    public void deleteEmployee(int userId, int employeeId) {
+        Employee employee = getEmployeeByUserIdAndEmployeeId(userId, employeeId).orElseThrow(() -> new RuntimeException("Employee not found"));
+        employeeRepository.delete(employee);
     }
-
-    @Override
-    public Employee saveEmployee(Employee employee) {
-        return employeeRepository.save(employee);
-    }
-
-    @Override
-    public List<Employee> getAllEmployees() {
-               return employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-
-    }
-
 }
-
