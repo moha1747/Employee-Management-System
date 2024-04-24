@@ -1,5 +1,7 @@
 package com.example.employeemanagmentbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +19,7 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     public Employee() {}

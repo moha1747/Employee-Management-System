@@ -1,5 +1,6 @@
 package com.example.employeemanagmentbackend.controller;
 
+import com.example.employeemanagmentbackend.service.EmployeeService;
 import com.example.employeemanagmentbackend.service.LoginDataTransfer;
 import com.example.employeemanagmentbackend.service.PasswordHash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class UserController {
     
     @Autowired
     private UserService userService; // we are bringing in User Service instance
+     @Autowired
+    private EmployeeService employeeService; // Autowire EmployeeService for managing employees
 
     // This is a post request, here we are going to be saving a user
     @PostMapping
@@ -38,16 +41,7 @@ public class UserController {
     public Optional<User> getUserById(@PathVariable int id) {
         return userService.getUserById(id);
     }
-    // Get all employees for a user by user Id
-    @GetMapping("/{id}/employees")
-    public Set<Employee> getUserEmployees(@PathVariable int id) {
-        return userService.getUserEmployees(id);
-    }
-    // Add an employee to a user
-    @PostMapping("/{userId}/employees")
-    public User addEmployeeToUser(@PathVariable int userId, @RequestBody Employee employee) {
-        return userService.addEmployeeToUser(userId, employee);
-    }
+
     // Update an user
     @PutMapping("/{id}")
     public User updateUser(@PathVariable int id, @RequestBody User user) {
@@ -84,5 +78,30 @@ public class UserController {
     public String logoutUser(HttpSession session) {
         session.invalidate();
         return "Logged out successfully";
+    }
+    // New Employee management endpoints under a user
+    @GetMapping("/{userId}/employees")
+    public Set<Employee> getUserEmployees(@PathVariable int userId) {
+        return userService.getUserEmployees(userId);
+    }
+
+    @PostMapping("/{userId}/employees")
+    public Employee addEmployeeToUser(@PathVariable int userId, @RequestBody Employee employee) {
+        return employeeService.addEmployeeToUser(userId, employee);
+    }
+
+    @GetMapping("/{userId}/employees/{employeeId}")
+    public Optional<Employee> getEmployeeById(@PathVariable int userId, @PathVariable int employeeId) {
+        return employeeService.getEmployeeByUserIdAndEmployeeId(userId, employeeId);
+    }
+
+    @PutMapping("/{userId}/employees/{employeeId}")
+    public Employee updateEmployee(@PathVariable int userId, @PathVariable int employeeId, @RequestBody Employee employee) {
+        return employeeService.updateEmployee(userId, employeeId, employee);
+    }
+
+    @DeleteMapping("/{userId}/employees/{employeeId}")
+    public void deleteEmployee(@PathVariable int userId, @PathVariable int employeeId) {
+        employeeService.deleteEmployee(userId, employeeId);
     }
 }
