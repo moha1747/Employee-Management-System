@@ -17,7 +17,10 @@ const Authentication = () => {
     e.preventDefault();
     if (email !== "" && password !== "") {
       AuthenticationService.login(userData)
-        .then(() => navigate("/employee"))
+        .then((response) => {
+          localStorage.setItem("userId", response.data.id);
+          navigate("/employee");
+        })
         .catch((e) => console.log(e));
       console.log(userData)
     } else {
@@ -29,7 +32,11 @@ const Authentication = () => {
     e.preventDefault();
     if (email !== "" && password !== "") {
       AuthenticationService.register(userData)
-        .then(() => navigate("/employee"))
+        .then((response) => {
+          localStorage.setItem('userId', response.data.id)
+          navigate("/employee");
+          
+        })
         .catch((e) => console.log(e));
             console.log(userData);
 
@@ -66,7 +73,7 @@ const Authentication = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             
-            <button onClick={(e) => handleRegister(e)}>Register</button>
+            <button type="submit">Register</button>
           </form>
           <div className="switch">
             Already have an account?{" "}
@@ -95,7 +102,7 @@ const Authentication = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button onClick={(e) => handleLogin(e)}>Login</button>
+            <button type="submit">Login</button>
           </form>
           <div className="switch">
             Don't have an account?{" "}

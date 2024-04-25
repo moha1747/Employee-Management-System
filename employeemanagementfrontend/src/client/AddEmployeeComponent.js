@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import EmployeeService from "../service/EmployeeService";
+import { Link, useNavigate } from "react-router-dom";
+import UserService from "../service/UserService";
 import "../styles/add.css";
 
 const AddEmployeeComponent = () => {
@@ -12,38 +12,44 @@ const AddEmployeeComponent = () => {
   const [hours, setHours] = useState("");
   const [position, setPosition] = useState("");
   const navigate = useNavigate();
- const { userId } = useParams(); // Fetching userId from route parameters
+  const userId = localStorage.getItem("userId"); 
+  // const employeeId = localStorage.getItem("employeeId")
 
- const employeeData = {
-   firstName,
-   lastName,
-   email,
-   location,
-   position,
-   hours,
- };
+  const employeeData = {
+    firstName,
+    lastName,
+    email,
+    location,
+    position,
+    hours,
+  };
 
- function saveEmployee(e) {
-   e.preventDefault();
-   if (Object.values(employeeData).every((field) => field !== "")) {
-     EmployeeService.addEmployeeToUser(userId, employeeData)
-       .then(() => navigate("/employees"))
-       .catch((e) => console.log(e));
-   } else {
-     alert("Please fill in all fields");
-   }
- }
-
-  function tile() {
-    if (userId) {
-      return "Update Employee";
+  function saveEmployee(e) {
+    e.preventDefault();
+    if (Object.values(employeeData).every((field) => field !== "")) {
+      UserService.addEmployee(userId, employeeData)
+        .then((response) => {
+          localStorage.setItem('employeeId', response.data.id)
+          navigate(`/user/employees`)
+        } 
+      )
+        .catch((e) => console.log(e));
     } else {
-      return "Add Employee";
+      alert("Please fill in all fields");
     }
   }
+
+  // function tile() {
+  //   if (employeeId) {
+  //     return "Update Employee";
+  //   } else {
+  //     return "Add Employee";
+  //   }
+  // }
   useEffect(() => {
     if (userId) {
-      EmployeeService.getEmployeeById(userId)
+      console.log(userId)
+      UserService.getEmployeeById(userId)
         .then((res) => {
           setFirstName(res.data.firstName);
           setLastName(res.data.lastName);
@@ -53,15 +59,17 @@ const AddEmployeeComponent = () => {
           setHours(res.data.hours);
         })
         .catch((e) => console.log(e));
+    } else {
+      console.error("UserId not found");
     }
   }, []);
 
   return (
     <div>
-      <div className="container1">
+      <div className="container12">
         <div className="title">
           {" "}
-          <h2>{tile()}</h2>
+          <h2 className="text-white ">Employee</h2>
         </div>
         <div className="card-body">
           <form>
@@ -119,16 +127,17 @@ const AddEmployeeComponent = () => {
                 placeholder="Enter hours"
               />
             </div>
-            <div className="button"></div>
+            <div className="button">
             <button
               onClick={(e) => saveEmployee(e)}
               className="custom-btn btn-5"
             >
               <span>Save</span>
             </button>{" "}
-            <Link to={"/employee"} style={{ textDecoration: "none" }} href="">
+            <Link to={`/user/${userId}/employees`} style={{ textDecoration: "none" }} href="">
               <button className="custom-btn btn-13">Cancel</button>
-            </Link>
+              </Link>
+              </div>
           </form>
         </div>
       </div>
