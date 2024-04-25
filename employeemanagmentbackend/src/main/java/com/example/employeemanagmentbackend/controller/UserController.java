@@ -69,7 +69,7 @@ public class UserController {
         Optional<User> user = userService.findByEmail(loginDT.getEmail());
         if (user.isPresent() && PasswordHash.checkPass(loginDT.getPassword(), user.get().getPassword())) {
             session.setAttribute("user", user.get());
-            return ResponseEntity.ok("Logged in successfully");
+            return ResponseEntity.ok(user);
         } else {
             return ResponseEntity.badRequest().body("Invalid credentials");
         }
