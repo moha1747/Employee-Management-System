@@ -30,7 +30,7 @@ const AddEmployeeComponent = () => {
       UserService.addEmployee(userId, employeeData)
         .then((response) => {
           localStorage.setItem('employeeId', response.data.id)
-          navigate(`/user/employees`)
+          navigate(`/user/employee`)
         } 
       )
         .catch((e) => console.log(e));
