@@ -19,7 +19,7 @@ const Authentication = () => {
       AuthenticationService.login(userData)
         .then((response) => {
           localStorage.setItem("userId", response.data.id);
-          navigate("/employee");
+          navigate("/user/employee");
         })
         .catch((e) => console.log(e));
       console.log(userData)
@@ -34,7 +34,7 @@ const Authentication = () => {
       AuthenticationService.register(userData)
         .then((response) => {
           localStorage.setItem('userId', response.data.id)
-          navigate("/employee");
+          navigate("/user/employee");
           
         })
         .catch((e) => console.log(e));
