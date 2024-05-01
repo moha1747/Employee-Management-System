@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import UserService from "../service/UserService";
 import "../styles/add.css";
 
@@ -11,9 +11,9 @@ const AddEmployeeComponent = () => {
   const [location, setLocation] = useState("");
   const [hours, setHours] = useState("");
   const [position, setPosition] = useState("");
-  const navigate = useNavigate();
-  const userId = localStorage.getItem("userId"); 
-  // const employeeId = localStorage.getItem("employeeId")
+  const navigate = useNavigate(); 
+  const userId = localStorage.getItem("userId");
+  const { employeeId } = useParams(); // const employeeId = localStorage.getItem("employeeId")
 
   const employeeData = {
     firstName,
@@ -26,50 +26,46 @@ const AddEmployeeComponent = () => {
 
   function saveEmployee(e) {
     e.preventDefault();
-    if (Object.values(employeeData).every((field) => field !== "")) {
-      UserService.addEmployee(userId, employeeData)
-        .then((response) => {
-          localStorage.setItem('employeeId', response.data.id)
-          navigate(`/user/employee`)
-        } 
-      )
+    if (employeeId) {
+      // Check if updating
+      UserService.updateEmployee(userId, employeeData, employeeId)
+        .then(() => navigate(`/user/employee`))
         .catch((e) => console.log(e));
     } else {
-      alert("Please fill in all fields");
+      // Otherwise, add new employee
+      UserService.addEmployee(userId, employeeData)
+        .then(() => navigate(`/user/employee`))
+        .catch((e) => console.log(e));
     }
   }
-
-  // function tile() {
-  //   if (employeeId) {
-  //     return "Update Employee";
-  //   } else {
-  //     return "Add Employee";
-  //   }
-  // }
   useEffect(() => {
-    if (userId) {
-      console.log(userId)
-      UserService.getEmployeeById(userId)
+    if (employeeId) {
+      // If there's an employeeId, we're in "edit" mode
+      UserService.getEmployeeById(userId, employeeId)
         .then((res) => {
-          setFirstName(res.data.firstName);
-          setLastName(res.data.lastName);
-          setEmail(res.data.email);
-          setLocation(res.data.location);
-          setPosition(res.data.position);
-          setHours(res.data.hours);
+          const { firstName, lastName, email, location, position, hours } =
+            res.data;
+          setFirstName(firstName);
+          setLastName(lastName);
+          setEmail(email);
+          setLocation(location);
+          setPosition(position);
+          setHours(hours);
         })
         .catch((e) => console.log(e));
-    } else {
-      console.error("UserId not found");
     }
-  }, []);
+  }, [userId, employeeId]); // Include userId and employeeId as dependencies
+
+  function title() {
+    return employeeId ? "Update Employee" : "Add Employee";
+  }
 
   return (
     <div>
       <div className="container12">
         <div className="title">
           {" "}
-          <h2 className="text-white ">Employee</h2>
+          <h2 className="text-white">{title()}</h2>
         </div>
         <div className="card-body">
           <form>
@@ -128,16 +124,20 @@ const AddEmployeeComponent = () => {
               />
             </div>
             <div className="button">
-            <button
-              onClick={(e) => saveEmployee(e)}
-              className="custom-btn btn-5"
-            >
-              <span>Save</span>
-            </button>{" "}
-            <Link to={`/user/${userId}/employees`} style={{ textDecoration: "none" }} href="">
-              <button className="custom-btn btn-13">Cancel</button>
+              <button
+                onClick={(e) => saveEmployee(e)}
+                className="custom-btn btn-5"
+              >
+                <span>Save</span>
+              </button>{" "}
+              <Link
+                to={`/user/${userId}/employees`}
+                style={{ textDecoration: "none" }}
+                href=""
+              >
+                <button className="custom-btn btn-13">Cancel</button>
               </Link>
-              </div>
+            </div>
           </form>
         </div>
       </div>
