@@ -1,10 +1,28 @@
-.table{
-    width: 1100px;
-    height: 250px;
-    margin: auto;
-
+.table {
+  width: 100%; /* Full width to align with container1 */
+  table-layout: fixed; /* This helps with consistent column widths */
 }
-.first {
-    font-size: 18;
-    font-weight: 500;
+.tableContainer {
+  width: 1100px;
+  height: 60px;
+  margin: auto;
+}
+.employeeName {
+  width: 280px; /* Matching width with header's first item (if needed adjust to match exactly) */
+}
+
+.position {
+  width: 130px; /* Match .second__item */
+}
+
+.location {
+  width: 200px; /* Match .third__item */
+}
+
+.hours {
+  width: 140px; /* Match .fourth__item */
+}
+
+.actions {
+  width: 140px; /* Assuming actions column needs to match the last item in header */
 }

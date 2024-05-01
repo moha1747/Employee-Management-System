@@ -5,8 +5,7 @@
   color: white;
   margin: auto;
   margin-top: 50px;
-    border-radius: 5px;
-
+  border-radius: 5px;
 }
 
 .items__container {
@@ -18,10 +17,10 @@
 }
 .first__label {
   display: flex;
-justify-content: center;
-align-items: center;
-color: white;
-/* position: relative; */
+  justify-content: center;
+  align-items: center;
+  color: white;
+  /* position: relative; */
 }
 .selector {
   width: 25px; /* Make the radio button larger */
@@ -37,23 +36,27 @@ color: white;
 .employee {
   font-weight: bold;
   font-size: 18px;
-  margin-left: 30px;
   cursor: pointer;
   color: white;
-  
 }
 .second__item {
   font-weight: bold;
   font-size: 18px;
-  margin-left: 185px;
+  padding-left: 200px;
 }
 .third__item {
   font-weight: bold;
   font-size: 18px;
-  margin-left: 140px;
+  padding-left: 90px;
 }
 .fourth__item {
   font-weight: bold;
   font-size: 18px;
-  margin-left: 140px;
+  padding-left: 170px;
+}
+.fifth__item {
+  font-weight: bold;
+  font-size: 18px;
+  padding-left: 120px;
+  padding-right: 30px;
 }
