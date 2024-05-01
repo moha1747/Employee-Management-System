@@ -25,10 +25,9 @@ class UserService {
   updateEmployee(id, employeeData, employeeId) {
     return axios.put(`${BASE_URL}/${id}/employees/${employeeId}`, employeeData);
   }
-  deleteEmployee(id, employeeData, employeeId) {
+  deleteEmployee(id, employeeId) {
     return axios.delete(
-      `${BASE_URL}/${id}/employees/${employeeId}`,
-      employeeData
+      `${BASE_URL}/${id}/employees/${employeeId}`
     );
       
   }

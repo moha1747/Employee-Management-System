@@ -24,6 +24,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
 
+
   
 }
 
@@ -53,4 +54,7 @@ code {
 a {
   text-decoration: none; /* Remove underline */
   color: inherit; /* Inherit text color */
+}
+table{
+  table-layout: fixed;
 }

@@ -15,7 +15,7 @@ function App() {
 
         <Route path="/user/employee" element={<Home />} />
         <Route path="/add-employee" element={<AddEmployeeComponent />} />
-        <Route path="/add-employee/:id" element={<AddEmployeeComponent />} />
+        <Route path="/add-employee/:employeeId" element={<AddEmployeeComponent />} />
       </Routes>
     </BrowserRouter>
   );
