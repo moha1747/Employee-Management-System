@@ -29,3 +29,8 @@ Due to limited resources and the ongoing costs associated with maintaining AWS s
 
 ### Screenshot of Different states of my Application
 
+![Dashboard that shows all employees](./Screenshots/main.png)
+![Add employee screen](./Screenshots/add-employee.png)
+![signup screen](./Screenshots/signup.png)
+
+
