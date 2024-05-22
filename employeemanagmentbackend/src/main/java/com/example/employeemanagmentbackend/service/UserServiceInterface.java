@@ -5,6 +5,10 @@ import java.util.*;
 
 import com.example.employeemanagmentbackend.model.*;
 
+
+/**
+ * Interface for managing users.
+ */
 public interface UserServiceInterface {
 
     User saveUser(User user);

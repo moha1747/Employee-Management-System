@@ -1,6 +1,9 @@
 package com.example.employeemanagmentbackend.service;
-
+/**
+ * A class representing login data transfer object.
+ */
 public class LoginDataTransfer {
+
         private String email;
         private String password;
 
