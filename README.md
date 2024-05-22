@@ -6,6 +6,7 @@ This is a full-stack application for managing employees. It consists of a backen
 
 ### Backend (Spring Boot)
 ### Frontend (React + Material UI)
+### Database (MySQL)
 
 1. Clone the repository:
    ```bash
