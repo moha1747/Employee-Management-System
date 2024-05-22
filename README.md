@@ -22,7 +22,7 @@ This is a full-stack application for managing employees. It consists of a backen
   cd src
   npm install
   npm start
-
+```
 
 #### Reason for Stopping AWS Usage
 Due to limited resources and the ongoing costs associated with maintaining AWS services, the decision was made to stop using EC2 and RDS. This was necessary to manage expenses effectively and explore alternative hosting solutions. As of now the only way I can showcase this project is through local set up.
